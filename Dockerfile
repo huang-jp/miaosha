@@ -1,5 +1,7 @@
-FROM jdk:8
-VOLUME /tmp
-ADD target/zx-order-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8888
-ENTRYPOINT ["Bash","-DBash.security.egd=file:/dev/./urandom","-jar","/app.jar","--spring.profiles.active=prd"]
+FROM adoptopenjdk/openjdk8
+
+ WORKDIR app  #切换到镜像中的指定路径，设置工作目录
+
+ COPY target/*.jar app.jar  #会将宿主机的target/*.jar文件复制到 镜像的工作目录 /app/ 下
+
+ CMD ["java", "-jar", "app.jar"]  #执行java -jar 命令
